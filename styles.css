@@ -270,9 +270,37 @@ body {
   margin-top: 18px;
   padding-top: 10px;
   border-top: 1px solid var(--border-color);
-  text-align: right;
   color: var(--muted-color);
   font-size: 0.95rem;
+}
+
+.todo-actions {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+}
+
+.clear-completed-btn {
+  border: none;
+  border-radius: 10px;
+  background: rgba(239, 68, 68, 0.1);
+  color: var(--danger-color);
+  font-size: 0.9rem;
+  font-weight: 600;
+  padding: 8px 12px;
+  cursor: pointer;
+  transition: background 0.2s ease, color 0.2s ease, transform 0.15s ease;
+}
+
+.clear-completed-btn:hover:not(:disabled) {
+  background: rgba(239, 68, 68, 0.15);
+  color: var(--danger-hover);
+}
+
+.clear-completed-btn:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
 }
 
 @media (max-width: 480px) {
