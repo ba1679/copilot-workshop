@@ -43,7 +43,18 @@
         <p id="empty-state" class="empty-state" hidden>還沒有任何待辦事項,新增一個吧!</p>
 
         <footer class="todo-footer">
-          <span id="todo-count">未完成: 0 項</span>
+          <div class="todo-actions">
+            <span id="todo-count">未完成: 0 項</span>
+            <button
+              id="clear-completed"
+              class="clear-completed-btn"
+              type="button"
+              aria-label="清除所有已完成事項"
+              hidden
+            >
+              清除已完成
+            </button>
+          </div>
         </footer>
       </section>
     </main>

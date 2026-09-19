@@ -7,6 +7,7 @@ const todoInput = document.getElementById('todo-input');
 const todoList = document.getElementById('todo-list');
 const emptyState = document.getElementById('empty-state');
 const todoCount = document.getElementById('todo-count');
+const clearCompletedButton = document.getElementById('clear-completed');
 const themeToggle = document.getElementById('theme-toggle');
 const filterButtons = document.querySelectorAll('.filter-btn');
 
@@ -79,6 +80,35 @@ function getEmptyMessage() {
 function updateCount(todos) {
   const unfinishedCount = todos.filter((todo) => !todo.completed).length;
   todoCount.textContent = `未完成: ${unfinishedCount} 項`;
+
+  const completedCount = todos.filter((todo) => todo.completed).length;
+  const hasCompletedTodos = completedCount > 0;
+
+  clearCompletedButton.hidden = !hasCompletedTodos;
+  clearCompletedButton.disabled = !hasCompletedTodos;
+  clearCompletedButton.setAttribute(
+    'aria-label',
+    hasCompletedTodos ? `清除所有 ${completedCount} 個已完成事項` : '沒有已完成事項可清除'
+  );
+}
+
+// 清除所有已完成的待辦事項，刪除前會先確認是否真的要執行。
+function clearCompletedTodos() {
+  const todos = loadTodos();
+  const completedTodos = todos.filter((todo) => todo.completed);
+
+  if (completedTodos.length === 0) {
+    return;
+  }
+
+  const confirmed = window.confirm(`確定要刪除 ${completedTodos.length} 個已完成的待辦事項嗎？`);
+  if (!confirmed) {
+    return;
+  }
+
+  const remainingTodos = todos.filter((todo) => !todo.completed);
+  saveTodos(remainingTodos);
+  renderTodos();
 }
 
 // 重新繪製清單畫面，並根據篩選狀態與資料顯示空狀態。
@@ -204,6 +234,7 @@ todoForm.addEventListener('submit', (event) => {
 });
 
 themeToggle.addEventListener('click', handleThemeToggle);
+clearCompletedButton.addEventListener('click', clearCompletedTodos);
 
 filterButtons.forEach((button) => {
   button.addEventListener('click', () => {
