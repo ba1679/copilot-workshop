@@ -63,13 +63,13 @@ function getFilteredTodos(todos) {
   }
 }
 
-// 根據目前篩選狀態回傳對應的提示文字。
+// 根據目前篩選狀態回傳對應的提示文字，讓使用者知道項目只是被篩選條件過濾掉，不是被刪除。
 function getEmptyMessage() {
   switch (activeFilter) {
     case 'pending':
-      return '還沒有未完成的待辦事項';
+      return '目前沒有未完成的事項。這些待辦仍在清單中，只是被篩選條件過濾掉了。';
     case 'completed':
-      return '還沒有已完成的待辦事項';
+      return '目前沒有已完成的事項。這些待辦仍在清單中，只是被篩選條件過濾掉了。';
     default:
       return '還沒有任何待辦事項,新增一個吧!';
   }
